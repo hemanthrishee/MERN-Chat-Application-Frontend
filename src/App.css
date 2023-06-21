@@ -60,7 +60,7 @@ body {
 }
 .chat-window .chat-header {
   height: 45px;
-  border-radius: 6px;
+  border-radius: 6px 6px 0px 0px;
   background: #263238;
   position: relative;
   cursor: pointer;
@@ -96,13 +96,12 @@ body {
   display: flex;
 }
 
-.chat-window .chat-body .message .message-content {
+.chat-window .chat-body .message .message-content{
   width: auto;
   height: auto;
   min-height: 40px;
   max-width: 120px;
-  background-color: #43a047;
-  border-radius: 5px;
+  background-color: cornflowerblue;
   color: white;
   display: flex;
   align-items: center;
@@ -114,29 +113,31 @@ body {
   word-break: break-word;
 }
 
-#you {
+#other {
+  justify-content: flex-start;
+  border-radius: 0px 10px 10px 10px;
+}
+
+#other .message-content {
   justify-content: flex-start;
 }
 
-#you .message-content {
-  justify-content: flex-start;
-}
-
-#you .message-meta {
+#other .message-meta {
   justify-content: flex-start;
   margin-left: 5px;
 }
 
-#other {
+#you {
   justify-content: flex-end;
+  border-radius: 10px 0px 10px 10px;
 }
 
-#other .message-content {
+#you .message-content {
   justify-content: flex-end;
-  background-color: cornflowerblue;
+  background-color: #43a047;
 }
 
-#other .message-meta {
+#you .message-meta {
   justify-content: flex-end;
   margin-right: 5px;
 }
@@ -278,4 +279,15 @@ button:hover{
 }
 #chk:checked ~ .signup label{
 	transform: scale(.6);
+}
+
+.chat-footer input {
+  margin-top: 0px;
+  border-radius: 0px 0px 0px 5px;
+}
+
+.chat-footer button {
+  margin-top: 0px;
+  border-radius: 0px 0px 5px 0px;
+  background: white;
 }

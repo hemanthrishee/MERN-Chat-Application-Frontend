@@ -1,5 +1,6 @@
 import React, {useEffect, useMemo, useState} from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
+import SendIcon from '@mui/icons-material/Send';
 
 function Chats (props) {
     const [message, setMessage] = useState("");
@@ -16,7 +17,8 @@ function Chats (props) {
                 room: props.room,
                 username: props.username,
                 message: message,
-                time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes()
+                time: new Date(Date.now()).getHours() + ":" + ("0" + new Date(Date.now()).getMinutes()).substr(-2),
+                t: "message"
             };
 
             await props.socket.emit("send_message", messageData);
@@ -32,19 +34,20 @@ function Chats (props) {
             setMessageList((d)=> {
                 return [...d, data];
             });
+            console.log(messageList[messageList.length - 1]);
         });
     }, [props.socket]);
 
     return <div className="chat-window">
         <div className="chat-header">
-            <p>Live Chat</p>
+            <p>Room ID: {props.room}</p>
         </div>
         <div className="chat-body">
             <ScrollToBottom className="message-container">
                 {messageList.map((content)=> {
                     return <div className="message" id={content.username === props.username ? "you": "other"}>
                         <div>
-                            <div className="message-content">
+                            <div className="message-content" id={content.username === props.username ? "you": "other"}>
                                 <p>{content.message}</p>
                             </div>
                             <div className="message-meta">
@@ -60,7 +63,7 @@ function Chats (props) {
             <input value={message} type="text" placeholder="Write your message" onChange={typingText} onKeyDown={(event)=> {
                 event.key === "Enter" && sendMessage();
             }} />
-            <button onClick={sendMessage}>&#9658;</button>
+            <button onClick={sendMessage} style={{backgroundColor: "#e0dede", color: "grey"}}><SendIcon /></button>
         </div>
     </div>
 }
