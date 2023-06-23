@@ -4,7 +4,6 @@ import io from "socket.io-client";
 import Chats from "./Chats";
 import Signup from './Signup';
 const randomize = require('randomatic');
-const dotenv = require("dotenv").config();
 
 const socket = io.connect(process.env.SERVER);
 
