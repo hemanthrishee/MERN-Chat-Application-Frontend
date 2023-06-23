@@ -5,6 +5,12 @@ import SendIcon from '@mui/icons-material/Send';
 function Chats (props) {
     const [message, setMessage] = useState("");
     const [messageList, setMessageList] = useState([]);
+    const [messageListGettingToggle, setMessageListGettingToggle] = useState(true);
+
+    window.onbeforeunload = ()=> {
+        window.localStorage.setItem("reloadedUsername", props.username);
+        window.localStorage.setItem("reloadedRoom", props.room);
+    }
 
     function typingText(event) {
         setMessage(event.target.value);
@@ -26,6 +32,7 @@ function Chats (props) {
                 return [...d, messageData];
             });
             setMessage("");
+            setMessageListGettingToggle(messageListGettingToggle);
         }
     }
 
@@ -38,6 +45,15 @@ function Chats (props) {
         });
     }, [props.socket]);
 
+    useEffect(async ()=> {
+        const response = await fetch(`http://localhost:3001/get/${props.room}`);
+        const jsonData = await response.json();
+        if (jsonData.messages)
+        {
+            setMessageList(jsonData.messages);
+        }
+    }, []);
+
     return <div className="chat-window">
         <div className="chat-header">
             <p>Room ID: {props.room}</p>
@@ -45,7 +61,8 @@ function Chats (props) {
         <div className="chat-body">
             <ScrollToBottom className="message-container">
                 {messageList.map((content)=> {
-                    return <div className="message" id={content.username === props.username ? "you": "other"}>
+                    return content.t !== "announce" ?
+                     <div className="message" id={content.username === props.username ? "you": "other"}>
                         <div>
                             <div className="message-content" id={content.username === props.username ? "you": "other"}>
                                 <p>{content.message}</p>
@@ -55,7 +72,8 @@ function Chats (props) {
                                 <p id="author">{content.username}</p>
                             </div>
                         </div>
-                    </div>;
+                    </div>
+                    : <p id="announce">{content.message}</p>;
                 })}
             </ScrollToBottom>
         </div>

@@ -33,10 +33,9 @@ body {
   font-size: 16px;
 }
 
-.joinChatContainer button {
+#create-new-room {
   width: 225px;
   height: 50px;
-  margin: 7px;
   border: none;
   border-radius: 5px;
   padding: 5px;
@@ -46,8 +45,21 @@ body {
   cursor: pointer;
 }
 
-.joinChatContainer button:hover {
+#create-new-room:hover {
   background: #2e7d32;
+}
+
+#logout {
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 16px;
+  background: #863440;
+  color: #fff;
+  cursor: pointer;
+}
+
+#logout:hover {
+  background: #bc0808;
 }
 
 .chat-window {
@@ -290,4 +302,11 @@ button:hover{
   margin-top: 0px;
   border-radius: 0px 0px 5px 0px;
   background: white;
+}
+
+#announce {
+  display: flex;
+  justify-content: center;
+  color: gray;
+  padding-top: 5px;
 }
