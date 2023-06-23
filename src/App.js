@@ -4,8 +4,9 @@ import io from "socket.io-client";
 import Chats from "./Chats";
 import Signup from './Signup';
 const randomize = require('randomatic');
+const dotenv = require("dotenv").config();
 
-const socket = io.connect("https://chat-app-mern-server.onrender.com");
+const socket = io.connect(process.env.SERVER);
 
 function App() {
   const [username, setUsername] = useState("");
@@ -34,7 +35,7 @@ function App() {
   }
 
   async function joinRoom() {
-    const response = await fetch("https://chat-app-mern-server.onrender.com/rooms", {
+    const response = await fetch(process.env.SERVER + "/rooms", {
       headers: {
         "Content-Type": "application/json"
       },
@@ -94,7 +95,7 @@ function App() {
 
   async function signupSubmit(event) {
     event.preventDefault();
-    const response = await fetch("https://chat-app-mern-server.onrender.com/register", {
+    const response = await fetch(process.env.SERVER + "/register", {
       headers: {
         "Content-Type": "application/json"
       },
@@ -109,7 +110,7 @@ function App() {
 
   async function loginSubmit(event) {
     event.preventDefault();
-    const response = await fetch("https://chat-app-mern-server.onrender.com/login", {
+    const response = await fetch(process.env.SERVER + "/login", {
       headers: {
         "Content-Type": "application/json"
       },
