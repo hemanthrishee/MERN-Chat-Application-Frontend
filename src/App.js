@@ -143,7 +143,7 @@ function App() {
 
   return (
     <div className="App">
-      {loginStatus !== "yeah" ? <Signup signupChanged={signupChanged} loginChanged={loginChanged} loginSubmit={loginSubmit} signupSubmit={signupSubmit} signupStatus={signupStatus} loginStatus={loginStatus} />
+      {!logged ? <Signup signupChanged={signupChanged} loginChanged={loginChanged} loginSubmit={loginSubmit} signupSubmit={signupSubmit} signupStatus={signupStatus} loginStatus={loginStatus} />
       : !joinedRoom ? <div>
         <h1 style={{display: "flex", justifyContent: "center", color: "white"}}>Username: {logged}</h1>
         <button onClick={createNewRoom} id="create-new-room">Create New Room</button>
@@ -152,7 +152,7 @@ function App() {
         <button onClick={joinRoom}>Join Room</button>
         <button id="logout" onClick={()=> {localStorage.removeItem("logged"); window.location.reload();}}>Logout</button>
       </div>
-      :<Chats socket={socket} username={username} room={room} />}
+      :<Chats socket={socket} username={logged} room={room} />}
     </div>
   );
 }
