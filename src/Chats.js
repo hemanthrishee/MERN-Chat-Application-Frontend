@@ -46,7 +46,7 @@ function Chats (props) {
     }, [props.socket]);
 
     useEffect(async ()=> {
-        const response = await fetch(`http://localhost:3001/get/${props.room}`);
+        const response = await fetch(`https://chat-app-mern-server.onrender.com/get/${props.room}`);
         const jsonData = await response.json();
         if (jsonData.messages)
         {
