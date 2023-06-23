@@ -45,13 +45,17 @@ function Chats (props) {
         });
     }, [props.socket]);
 
-    useEffect(async ()=> {
-        const response = await fetch(process.env.SERVER + `/get/${props.room}`);
-        const jsonData = await response.json();
-        if (jsonData.messages)
+    useEffect(()=> {
+        async function execute()
         {
-            setMessageList(jsonData.messages);
+            const response = await fetch(`https://chat-app-mern-server.onrender.com/get/${props.room}`);
+            const jsonData = await response.json();
+            if (jsonData.messages)
+            {
+                setMessageList(jsonData.messages);
+            }
         }
+        execute();
     }, []);
 
     return <div className="chat-window">
