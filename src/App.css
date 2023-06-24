@@ -76,6 +76,7 @@ body {
   background: #263238;
   position: relative;
   cursor: pointer;
+  display: flex;
 }
 .chat-window .chat-header p {
   display: block;
@@ -309,4 +310,27 @@ button:hover{
   justify-content: center;
   color: gray;
   padding-top: 5px;
+}
+
+#copy {
+  padding: 10px;
+	background: #263238;
+	color: #fff;
+	font-size: 18px;
+	border: none;
+	outline: none;
+	border-radius: 10px;
+	cursor: pointer;
+  width: 40px;
+  margin-top: 3px;
+  padding: 8px;
+}
+
+#copy:active {
+	background: grey;
+}
+
+#copied {
+  font-size: 10px;
+  color: #FFFF00;
 }

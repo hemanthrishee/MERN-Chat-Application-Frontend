@@ -1,6 +1,7 @@
 import React, {useEffect, useMemo, useState} from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 import SendIcon from '@mui/icons-material/Send';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 function Chats (props) {
     const [message, setMessage] = useState("");
@@ -58,9 +59,21 @@ function Chats (props) {
         execute();
     }, []);
 
+    async function copy() {
+        const roomID = props.room;
+        await navigator.clipboard.writeText(roomID);
+        const para = document.querySelector(".chat-header #copied");
+        para.innerHTML = "copied";
+	    setTimeout(function () {
+	    	para.innerHTML = "";
+	    }, 2500);
+    }
+
     return <div className="chat-window">
         <div className="chat-header">
             <p>Room ID: {props.room}</p>
+            <button id="copy" onClick={copy}><ContentCopyIcon /></button>
+            <p id="copied"></p>
         </div>
         <div className="chat-body">
             <ScrollToBottom className="message-container">

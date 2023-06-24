@@ -128,7 +128,7 @@ function App() {
   }
 
   function createNewRoom() {
-    const roomID = randomize('Aa0', 12);
+    const roomID = randomize('0', 8);
     socket.emit("join_room", {room: roomID, username: username});
     socket.emit("send_message", {
       room: roomID,
