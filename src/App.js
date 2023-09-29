@@ -50,8 +50,8 @@ function App() {
       socket.emit("join_room", {room: room, username: username});
       socket.emit("send_message", {
         room: room,
-        username: username,
-        message: `${username} joined the chat`,
+        username: localStorage.getItem("logged"),
+        message: `${localStorage.getItem("logged")} joined the chat`,
         time: new Date(Date.now()).getHours() + ":" + ("0" + new Date(Date.now()).getMinutes()).substr(-2),
         t: "announce"
       });
