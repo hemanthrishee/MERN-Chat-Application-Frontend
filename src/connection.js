@@ -1,0 +1,1 @@
+export const connection = "https://chat-app-mern-server.onrender.com"

@@ -72,7 +72,7 @@ body {
 }
 .chat-window .chat-header {
   height: 45px;
-  border-radius: 6px 6px 0px 0px;
+  border-radius: 0px 6px 0px 0px;
   background: #263238;
   position: relative;
   cursor: pointer;
@@ -296,7 +296,7 @@ button:hover{
 
 .chat-footer input {
   margin-top: 0px;
-  border-radius: 0px 0px 0px 5px;
+  border-radius: 0px 0px 0px 0px;
 }
 
 .chat-footer button {
@@ -333,4 +333,37 @@ button:hover{
 #copied {
   font-size: 10px;
   color: #FFFF00;
+}
+
+.full {
+  display: flex;
+}
+
+.full .members {
+  width: 200px;
+  border-radius: 6px 0px 0px 6px;
+  background-color: white;
+}
+
+.full .members .members-header {
+  height: 45px;
+  border-radius: 6px 0px 0px 0px;
+  background: #263238;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.full .members .members-header p {
+  display: block;
+  padding: 0 1em 0 2em;
+  color: #fff;
+  font-weight: 700;
+  line-height: 45px;
+}
+.member {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid black;
 }

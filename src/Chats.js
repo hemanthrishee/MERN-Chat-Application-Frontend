@@ -2,11 +2,14 @@ import React, {useEffect, useMemo, useState} from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 import SendIcon from '@mui/icons-material/Send';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { connection } from "./connection";
+import Member from "./Member";
 
 function Chats (props) {
     const [message, setMessage] = useState("");
     const [messageList, setMessageList] = useState([]);
     const [messageListGettingToggle, setMessageListGettingToggle] = useState(true);
+    const [memberList, setMemberList] = useState([]);
 
     window.onbeforeunload = ()=> {
         window.localStorage.setItem("reloadedUsername", props.username);
@@ -49,7 +52,7 @@ function Chats (props) {
     useEffect(()=> {
         async function execute()
         {
-            const response = await fetch(`https://chat-app-mern-server.onrender.com/get/${props.room}`);
+            const response = await fetch(connection + `/get/${props.room}`);
             const jsonData = await response.json();
             if (jsonData.messages)
             {
@@ -58,6 +61,17 @@ function Chats (props) {
         }
         execute();
     }, []);
+
+    useEffect(()=> {
+        async function fetchData() {
+            const response = await fetch(connection + `/members/${props.room}`)
+            const jsonData = await response.json();
+            if (jsonData) {
+                setMemberList(jsonData.members);
+            }
+        }
+        fetchData();
+    }, [messageList])
 
     async function copy() {
         const roomID = props.room;
@@ -69,7 +83,15 @@ function Chats (props) {
 	    }, 2500);
     }
 
-    return <div className="chat-window">
+    return (
+    <div className="full">
+        <div className="members">
+            <div className="members-header">
+                <p>Members</p>
+            </div>
+            {memberList !== undefined ? memberList.map((n)=> {return <Member name={n} />}) : null}
+        </div>
+    <div className="chat-window">
         <div className="chat-header">
             <p>Room ID: {props.room}</p>
             <button id="copy" onClick={copy}><ContentCopyIcon /></button>
@@ -101,6 +123,7 @@ function Chats (props) {
             <button onClick={sendMessage} style={{backgroundColor: "#e0dede", color: "grey"}}><SendIcon /></button>
         </div>
     </div>
+    </div>)
 }
 
 export default Chats;

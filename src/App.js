@@ -3,9 +3,10 @@ import './App.css';
 import io from "socket.io-client";
 import Chats from "./Chats";
 import Signup from './Signup';
+import { connection } from './connection';
 const randomize = require('randomatic');
 
-const socket = io.connect("https://chat-app-mern-server.onrender.com");
+const socket = io.connect(connection);
 
 function App() {
   const [username, setUsername] = useState("");
@@ -34,7 +35,7 @@ function App() {
   }
 
   async function joinRoom() {
-    const response = await fetch("https://chat-app-mern-server.onrender.com/rooms", {
+    const response = await fetch(connection + "/rooms", {
       headers: {
         "Content-Type": "application/json"
       },
@@ -47,7 +48,7 @@ function App() {
     setWrongRoom(data.status);
     if (wrongRoom === "no")
     {
-      socket.emit("join_room", {room: room, username: username});
+      socket.emit("join_room", {room: room, username: localStorage.getItem("logged")});
       socket.emit("send_message", {
         room: room,
         username: localStorage.getItem("logged"),
@@ -94,7 +95,7 @@ function App() {
 
   async function signupSubmit(event) {
     event.preventDefault();
-    const response = await fetch("https://chat-app-mern-server.onrender.com/register", {
+    const response = await fetch(connection + "/register", {
       headers: {
         "Content-Type": "application/json"
       },
@@ -109,7 +110,7 @@ function App() {
 
   async function loginSubmit(event) {
     event.preventDefault();
-    const response = await fetch("https://chat-app-mern-server.onrender.com/login", {
+    const response = await fetch(connection + "/login", {
       headers: {
         "Content-Type": "application/json"
       },
@@ -129,7 +130,7 @@ function App() {
 
   function createNewRoom() {
     const roomID = randomize('0', 8);
-    socket.emit("join_room", {room: roomID, username: username});
+    socket.emit("join_room", {room: roomID, username: localStorage.getItem("logged")});
     socket.emit("send_message", {
       room: roomID,
       username: username,
