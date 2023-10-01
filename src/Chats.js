@@ -2,6 +2,7 @@ import React, {useEffect, useMemo, useState} from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 import SendIcon from '@mui/icons-material/Send';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { connection } from "./connection";
 import Member from "./Member";
 
@@ -84,9 +85,11 @@ function Chats (props) {
     }
 
     return (
+    <div>
     <div className="full">
         <div className="members">
             <div className="members-header">
+                <button onClick={()=> {window.location.reload()}} ><LogoutIcon /></button>
                 <p>Members</p>
             </div>
             {memberList !== undefined ? memberList.map((n)=> {return <Member name={n} />}) : null}
@@ -101,7 +104,7 @@ function Chats (props) {
             <ScrollToBottom className="message-container">
                 {messageList.map((content)=> {
                     return content.t !== "announce" ?
-                     <div className="message" id={content.username === props.username ? "you": "other"}>
+                        <div className="message" id={content.username === props.username ? "you": "other"}>
                         <div>
                             <div className="message-content" id={content.username === props.username ? "you": "other"}>
                                 <p>{content.message}</p>
@@ -122,6 +125,7 @@ function Chats (props) {
             }} />
             <button onClick={sendMessage} style={{backgroundColor: "#e0dede", color: "grey"}}><SendIcon /></button>
         </div>
+    </div>
     </div>
     </div>)
 }

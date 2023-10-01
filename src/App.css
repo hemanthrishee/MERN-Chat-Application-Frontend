@@ -367,3 +367,15 @@ button:hover{
   justify-content: center;
   border-bottom: 1px solid black;
 }
+
+.full .members .members-header button {
+  margin-top: 10px;
+  border-radius: 5px;
+  padding: 5px;
+  background: #863440;
+  cursor: pointer;
+}
+
+.full .members .members-header button:hover {
+  background: #bc0808;
+}
