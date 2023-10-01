@@ -16,6 +16,19 @@ function App() {
   const logged = localStorage.getItem("logged");
   const reloadedUsername = localStorage.getItem("reloadedUsername");
   const reloadedRoom = localStorage.getItem("reloadedRoom");
+  const [signupDetails, setSignupDetails] = useState({
+    name: "",
+    email: "",
+    password: ""
+  });
+
+  const [loginDetails, setLoginDetails] = useState({
+    email: "",
+    password: ""
+  });
+
+  const [signupStatus, setSignupStatus] = useState("");
+  const [loginStatus, setLoginStatus] = useState("");
 
 
   if (reloadedUsername)
@@ -59,21 +72,6 @@ function App() {
       setJoinedRoom(true);
     }
   }
-
-  const [signupDetails, setSignupDetails] = useState({
-    name: "",
-    email: "",
-    password: ""
-  });
-
-  const [loginDetails, setLoginDetails] = useState({
-    email: "",
-    password: ""
-  });
-
-  const [signupStatus, setSignupStatus] = useState("");
-
-  const [loginStatus, setLoginStatus] = useState("");
 
   function signupChanged(event) {
     setSignupDetails((prevValue)=> {
